@@ -40,15 +40,12 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreTaskPostRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreTaskPostRequest $request)
     {
-        //
-        $task = new Task;
-        $task->content = $request->content;
-        $task->save();
+        $this->createOrUpdate($request);
         return redirect('/');
     }
 
@@ -85,16 +82,13 @@ class TasksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreTaskPostRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(StoreTaskPostRequest $request, $id)
     {
-        $task = Task::find($id);
-        $task->content = $request->content;
-        $task->save();
-
+        $this->createOrUpdate($request,$id);
         return redirect('/');
     }
 
@@ -107,5 +101,29 @@ class TasksController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    /**
+     * 
+     * タスクを登録または更新するメソッド
+     * 引数に$idがある場合は更新、無い場合は登録を行う
+     * 
+     * @param App\Http\Requests\StoreTaskPostRequest $request
+     * @param int $id
+     * 
+     */
+    protected function createOrUpdate($request,$id=null){
+        if($id == null){
+            $task = new Task;
+        }else{
+            $task = Task::find($id);
+        }
+        
+        if($request->title != ""){
+            $task->title = $request->title;
+        }
+        $task->content = $request->content;
+        $task->status = $request->status;
+        $task->save();
     }
 }
