@@ -4,7 +4,7 @@
 
 <!-- ここにページ毎のコンテンツを書く -->
     <h2>タスク一覧</h2>
-        <table>
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>タイトル</th>
@@ -22,7 +22,7 @@
                         <td>{{$task->status}}</td>
                         <td>
                             {!! Form::model($task, ['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}
-                            {!! Form::submit('削除') !!}
+                            {!! Form::submit('削除',['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
@@ -30,5 +30,5 @@
                 @endif
             </tbody>
         </table>
-        {!! link_to_route('tasks.create', '登録する') !!}
+        {!! link_to_route('tasks.create', '追加する',null,['class' => 'btn btn-default']) !!}
 @endsection
