@@ -17,9 +17,7 @@
         <p>
             {!! link_to_route('tasks.edit', '編集する', ['id' => $task->id]) !!} | {!! link_to_route('tasks.index', '一覧へ戻る') !!}
         </p>
-        {!! Form::model($task, ['route' => 'tasks.destroy']) !!}
-        {{ method_field('DELETE') }}
-                {!! Form::submit('登録') !!}
+        {!! Form::submit('登録') !!}
 
     {!! Form::close() !!}
 
