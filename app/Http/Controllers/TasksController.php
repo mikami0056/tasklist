@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Log;
 use App\Task;
 use App\Http\Requests\StoreTaskPostRequest;
 
@@ -99,8 +99,10 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
         //
+        $task = Task::destroy($id);
+        return redirect('/');
     }
     
     /**
